@@ -1,3 +1,4 @@
+#! /usr/bin/env python3
 from collections import defaultdict
 
 PROMPT = """Choose deprecation mode: Straight Line (sl),
@@ -41,7 +42,21 @@ def double_declining():
 
 
 def activity_based():
-    pass
+    start_value = int(input("Enter purchase price: "))
+    end_value = int(input("Enter residual value: "))
+    total_hours = int(input("Enter total service hours: "))
+    rate = (start_value - end_value) / total_hours
+    usage = [int(ent) for ent in input("Enter usage by year(space separated): ").split()]
+    
+    acc_dep = 0
+    book_value = start_value
+    for ent in usage:
+        dep_exp = rate * ent
+        acc_dep += dep_exp
+        book_value -= dep_exp
+        print(
+            f"Dep. Expense: {dep_exp:0.0f}, Acc. Dep.: {acc_dep:0.0f}, Book Value: {book_value:0.0f}"
+        )
 
 
 FUNC_MAP = {
