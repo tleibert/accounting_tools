@@ -38,7 +38,6 @@ def double_declining():
         print(
             f"Dep. Expense: {dep_exp:0.0f}, Acc. Dep.: {acc_dep:0.0f}, Book Value: {book_value:0.0f}"
         )
-        
 
 
 def activity_based():
@@ -46,8 +45,10 @@ def activity_based():
     end_value = int(input("Enter residual value: "))
     total_hours = int(input("Enter total service hours: "))
     rate = (start_value - end_value) / total_hours
-    usage = [int(ent) for ent in input("Enter usage by year(space separated): ").split()]
-    
+    usage = [
+        int(ent) for ent in input("Enter usage by year(space separated): ").split()
+    ]
+
     acc_dep = 0
     book_value = start_value
     for ent in usage:
@@ -63,7 +64,6 @@ FUNC_MAP = {
     "sl": straight_line,
     "dd": double_declining,
     "ab": activity_based,
-    "q": lambda: exit(),
 }
 
 
@@ -72,6 +72,7 @@ def main():
     Main function
     """
     call_table = defaultdict(lambda: lambda: print("Invalid choice!"), FUNC_MAP)
+    call_table["q"] = exit
     try:
         while choice := input(PROMPT):
             try:
