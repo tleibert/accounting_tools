@@ -1,5 +1,4 @@
 #! /usr/bin/env python3
-from collections import defaultdict
 
 PROMPT = """Choose deprecation mode: Straight Line (sl),
 Double-Declining Balance (dd), Activity Based (ab)
@@ -7,6 +6,14 @@ OR q to quit: """
 
 
 def straight_line():
+    """ 
+    Prompts for and calculates deprecation using the straight-line
+    method.
+    
+    Raises
+    ======
+    ValueError if invalid input is supplied
+    """
     start_value = int(input("Enter purchase price: "))
     end_value = int(input("Enter residual value: "))
     period = int(input("Enter service life: "))
@@ -24,6 +31,14 @@ def straight_line():
 
 
 def double_declining():
+    """ 
+    Prompts for and calculates deprecation using the double-declining
+    balance method.
+    
+    Raises
+    ======
+    ValueError if invalid input is supplied
+    """
     start_value = int(input("Enter purchase price: "))
     end_value = int(input("Enter residual value: "))
     period = int(input("Enter service life: "))
@@ -41,6 +56,14 @@ def double_declining():
 
 
 def activity_based():
+    """ 
+    Prompts for and calculates deprecation using the activity-based
+    method. (Also known as units-of-production)
+    
+    Raises
+    ======
+    ValueError if invalid input is supplied
+    """
     start_value = int(input("Enter purchase price: "))
     end_value = int(input("Enter residual value: "))
     total_hours = int(input("Enter total service hours: "))
@@ -64,6 +87,7 @@ FUNC_MAP = {
     "sl": straight_line,
     "dd": double_declining,
     "ab": activity_based,
+    "q": exit,
 }
 
 
@@ -71,12 +95,10 @@ def main():
     """
     Main function
     """
-    call_table = defaultdict(lambda: lambda: print("Invalid choice!"), FUNC_MAP)
-    call_table["q"] = exit
     try:
         while choice := input(PROMPT):
             try:
-                call_table[choice]()
+                FUNC_MAP.get(choice, default=lambda: print("Invalid choice!"))()
             except ValueError:
                 print("Invalid number!")
     except EOFError:
