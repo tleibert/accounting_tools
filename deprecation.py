@@ -6,10 +6,10 @@ OR q to quit: """
 
 
 def straight_line():
-    """ 
+    """
     Prompts for and calculates deprecation using the straight-line
     method.
-    
+
     Raises
     ======
     ValueError if invalid input is supplied
@@ -31,10 +31,10 @@ def straight_line():
 
 
 def double_declining():
-    """ 
+    """
     Prompts for and calculates deprecation using the double-declining
     balance method.
-    
+
     Raises
     ======
     ValueError if invalid input is supplied
@@ -56,10 +56,10 @@ def double_declining():
 
 
 def activity_based():
-    """ 
+    """
     Prompts for and calculates deprecation using the activity-based
     method. (Also known as units-of-production)
-    
+
     Raises
     ======
     ValueError if invalid input is supplied
@@ -98,7 +98,7 @@ def main():
     try:
         while choice := input(PROMPT):
             try:
-                FUNC_MAP.get(choice, default=lambda: print("Invalid choice!"))()
+                FUNC_MAP.get(choice, lambda: print("Invalid choice!"))()
             except ValueError:
                 print("Invalid number!")
     except EOFError:
