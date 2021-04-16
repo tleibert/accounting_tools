@@ -1,9 +1,13 @@
 PROMPT = """Calculate (i)ssue price,
 (a)mortization schedule, or (b)oth: """
 
-AMORTIZER_STRING = (
+AMORTIZER_LOOP_STRING = (
     "Payment no. {}, Cash Interest Payment: {:.2f},"
     " Interest Expense: {:.2f}, Amortizement: {:.2f}, Carrying Value: {:.2f}"
+)
+
+AMORTIZER_FINAL_STRING = (
+    "TOTAL: Interest Paid: {:.2f}, Interest Expense: {:.2f}, Amortization: {:.2f}\n"
 )
 
 
@@ -18,13 +22,17 @@ def pv(i, n):
 
 
 def amortizer(carrying_value, interest_payment, market_rate, num_years, periods):
-    print(f"START: Carrying Value: {carrying_value:.2}")
+    print(f"START: Carrying Value: {carrying_value:.2f}")
+    total_paid = 0
+    total_expense = 0
+    total_amortized = 0
+
     for i in range(periods * num_years):
         interest_expense = carrying_value * market_rate / periods
         amortize_amount = interest_expense - interest_payment
         carrying_value += amortize_amount
         print(
-            AMORTIZER_STRING.format(
+            AMORTIZER_LOOP_STRING.format(
                 i,
                 interest_payment,
                 interest_expense,
@@ -33,7 +41,13 @@ def amortizer(carrying_value, interest_payment, market_rate, num_years, periods)
             )
         )
 
-    print()
+        total_paid += interest_payment
+        total_expense += interest_expense
+        total_amortized += amortize_amount
+
+    print(
+        AMORTIZER_FINAL_STRING.format(total_paid, total_expense, abs(total_amortized))
+    )
 
 
 def issue_price():
@@ -85,12 +99,7 @@ def issue_and_amortize():
     amortizer(*issue_price())
 
 
-FUNC_MAP = {
-    "i": issue_price,
-    "a": amortize,
-    "b": issue_and_amortize,
-    "q": exit
-}
+FUNC_MAP = {"i": issue_price, "a": amortize, "b": issue_and_amortize, "q": exit}
 
 
 def main():
