@@ -33,7 +33,7 @@ def amortizer(carrying_value, interest_payment, market_rate, num_years, periods)
         carrying_value += amortize_amount
         print(
             AMORTIZER_LOOP_STRING.format(
-                i,
+                i + 1,
                 interest_payment,
                 interest_expense,
                 abs(amortize_amount),
@@ -64,9 +64,7 @@ def issue_price():
     stated_rate = float(input("Enter stated/face rate: ")) / 100
     market_rate = float(input("Enter market interest rate: ")) / 100
     years = int(input("Enter number of years: "))
-    periods_per_year = int(
-        i if (i := input("Enter number of periods per year (default 2): ")) != "" else 2
-    )
+    periods_per_year = int(input("Enter number of periods per year (default 2): ") or 2)
 
     payment = face_value * stated_rate / periods_per_year
     payment_value = payment * pva(
@@ -87,9 +85,7 @@ def amortize():
     stated_rate = float(input("Enter stated/face rate: ")) / 100
     market_rate = float(input("Enter market interest rate: ")) / 100
     years = int(input("Enter number of years: "))
-    periods_per_year = int(
-        i if (i := input("Enter number of periods per year (default 2): ")) != "" else 2
-    )
+    periods_per_year = int(input("Enter number of periods per year (default 2): ") or 2)
 
     payment = face_value * stated_rate / periods_per_year
     amortizer(sale_price, payment, market_rate, years, periods_per_year)
