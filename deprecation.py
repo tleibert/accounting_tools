@@ -95,15 +95,15 @@ def main():
     """
     Main function
     """
-    try:
-        while choice := input(PROMPT):
-            try:
-                FUNC_MAP.get(choice, lambda: print("Invalid choice!"))()
-            except ValueError:
-                print("Invalid number!")
-    except EOFError:
-        exit()
 
+
+while True:
+    try:
+        FUNC_MAP.get(input(PROMPT), lambda: print("Invalid choice!"))()
+    except ValueError:
+        print("Invalid number!")
+    except EOFError:
+        break
 
 if __name__ == "__main__":
     main()

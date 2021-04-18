@@ -95,7 +95,12 @@ def issue_and_amortize():
     amortizer(*issue_price())
 
 
-FUNC_MAP = {"i": issue_price, "a": amortize, "b": issue_and_amortize, "q": exit}
+FUNC_MAP = {
+    "i": issue_price,
+    "a": amortize,
+    "b": issue_and_amortize,
+    "q": exit,
+}
 
 
 def main():
@@ -107,7 +112,6 @@ def main():
             print("Invalid number!")
         except EOFError:
             break
-
 
 
 if __name__ == "__main__":
