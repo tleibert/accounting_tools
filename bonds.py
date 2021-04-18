@@ -1,5 +1,5 @@
 PROMPT = """Calculate (i)ssue price,
-(a)mortization schedule, or (b)oth: """
+(a)mortization schedule, (b)oth, or (q)uit: """
 
 AMORTIZER_LOOP_STRING = (
     "Payment no. {}, Cash Interest Payment: {:.2f},"
@@ -100,14 +100,14 @@ FUNC_MAP = {"i": issue_price, "a": amortize, "b": issue_and_amortize, "q": exit}
 
 def main():
     """ Prompts user for input """
-    try:
-        while choice := input(PROMPT):
-            try:
-                FUNC_MAP.get(choice, lambda: print("Invlaid Choice"))()
-            except ValueError:
-                print("Invalid number!")
-    except EOFError:
-        exit()
+    while True:
+        try:
+            FUNC_MAP.get(input(PROMPT), lambda: print("Invalid Choice"))()
+        except ValueError:
+            print("Invalid number!")
+        except EOFError:
+            break
+
 
 
 if __name__ == "__main__":
