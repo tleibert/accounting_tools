@@ -107,7 +107,9 @@ def main():
     """ Prompts user for input """
     while True:
         try:
-            FUNC_MAP.get(input(PROMPT), lambda: print("Invalid Choice"))()
+            FUNC_MAP[input(PROMPT)]()
+        except KeyError:
+            print("Invalid choice!")
         except ValueError:
             print("Invalid number!")
         except EOFError:
